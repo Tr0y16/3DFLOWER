@@ -1,0 +1,159 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D Flower Gift</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#ffd6e7,#fff);
+    text-align:center;
+}
+
+/* HEADER */
+
+header{
+    background:#ff4d88;
+    color:white;
+    padding:20px;
+    font-size:28px;
+}
+
+/* MAIN SECTION */
+
+section{
+    padding:80px 20px;
+}
+
+/* 3D FLOWER */
+
+.flower{
+    width:120px;
+    height:120px;
+    margin:40px auto;
+    position:relative;
+    transform-style:preserve-3d;
+    animation:spin 8s linear infinite;
+}
+
+.petal{
+    width:60px;
+    height:60px;
+    background:pink;
+    border-radius:50%;
+    position:absolute;
+    top:30px;
+    left:30px;
+    opacity:0.9;
+}
+
+.petal:nth-child(1){ transform: rotateY(0deg) translateZ(60px); }
+.petal:nth-child(2){ transform: rotateY(60deg) translateZ(60px); }
+.petal:nth-child(3){ transform: rotateY(120deg) translateZ(60px); }
+.petal:nth-child(4){ transform: rotateY(180deg) translateZ(60px); }
+.petal:nth-child(5){ transform: rotateY(240deg) translateZ(60px); }
+.petal:nth-child(6){ transform: rotateY(300deg) translateZ(60px); }
+
+.center{
+    width:40px;
+    height:40px;
+    background:yellow;
+    border-radius:50%;
+    position:absolute;
+    top:40px;
+    left:40px;
+}
+
+/* ANIMATION */
+
+@keyframes spin{
+    from{ transform:rotateY(0deg); }
+    to{ transform:rotateY(360deg); }
+}
+
+/* MESSAGE */
+
+.message{
+    font-size:22px;
+    margin-top:20px;
+    color:#333;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    background:#ff4d88;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e6005c;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:50px;
+    background:#ff4d88;
+    color:white;
+    padding:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+🌸 A 3D Flower For You
+</header>
+
+<section>
+
+<h1>Click the button to reveal a flower</h1>
+
+<button onclick="showFlower()">Show Flower</button>
+
+<div id="flowerContainer"></div>
+
+<p class="message" id="msg"></p>
+
+</section>
+
+<footer>
+Made with sweetness 💖
+</footer>
+
+<script>
+
+function showFlower(){
+
+document.getElementById("flowerContainer").innerHTML =
+`<div class="flower">
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="center"></div>
+</div>`;
+
+document.getElementById("msg").innerHTML =
+"Just like this flower, may your day bloom with happiness and beautiful moments.";
+
+}
+
+</script>
+
+</body>
+</html>
+```
