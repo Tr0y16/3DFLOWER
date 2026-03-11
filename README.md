@@ -1,21 +1,18 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>3D Flower Gift</title>
-
+<title>Magical Blooming Flowers</title>
 <style>
-
 body{
     margin:0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(#ffd6e7,#fff);
     text-align:center;
+    background: linear-gradient(#ffe6f2,#fff);
+    overflow-x:hidden;
 }
 
 /* HEADER */
-
 header{
     background:#ff4d88;
     color:white;
@@ -24,20 +21,17 @@ header{
 }
 
 /* MAIN SECTION */
-
 section{
     padding:80px 20px;
 }
 
-/* 3D FLOWER */
-
+/* FLOWER CONTAINER */
 .flower{
     width:120px;
     height:120px;
-    margin:40px auto;
+    margin:50px auto;
     position:relative;
-    transform-style:preserve-3d;
-    animation:spin 8s linear infinite;
+    transform-style: preserve-3d;
 }
 
 .petal{
@@ -46,17 +40,15 @@ section{
     background:pink;
     border-radius:50%;
     position:absolute;
-    top:30px;
-    left:30px;
-    opacity:0.9;
+    top:0;
+    left:0;
+    transform-origin:30px 30px;
+    transition: transform 0.3s;
 }
 
-.petal:nth-child(1){ transform: rotateY(0deg) translateZ(60px); }
-.petal:nth-child(2){ transform: rotateY(60deg) translateZ(60px); }
-.petal:nth-child(3){ transform: rotateY(120deg) translateZ(60px); }
-.petal:nth-child(4){ transform: rotateY(180deg) translateZ(60px); }
-.petal:nth-child(5){ transform: rotateY(240deg) translateZ(60px); }
-.petal:nth-child(6){ transform: rotateY(300deg) translateZ(60px); }
+.petal:hover{
+    transform: scale(1.3) rotate(20deg);
+}
 
 .center{
     width:40px;
@@ -64,22 +56,14 @@ section{
     background:yellow;
     border-radius:50%;
     position:absolute;
-    top:40px;
-    left:40px;
-}
-
-/* ANIMATION */
-
-@keyframes spin{
-    from{ transform:rotateY(0deg); }
-    to{ transform:rotateY(360deg); }
+    top:10px;
+    left:10px;
 }
 
 /* MESSAGE */
-
 .message{
     font-size:22px;
-    margin-top:20px;
+    margin-top:30px;
     color:#333;
 }
 
@@ -98,7 +82,6 @@ button:hover{
 }
 
 /* FOOTER */
-
 footer{
     margin-top:50px;
     background:#ff4d88;
@@ -106,54 +89,90 @@ footer{
     padding:15px;
 }
 
+/* FLOATING ELEMENTS */
+.floating{
+    position:absolute;
+    font-size:24px;
+    animation:float linear infinite;
+    pointer-events:none;
+}
+
+@keyframes float{
+    0%{ transform: translateY(0) rotate(0deg); opacity:1; }
+    100%{ transform: translateY(-400px) rotate(360deg); opacity:0; }
+}
 </style>
-
 </head>
-
 <body>
 
 <header>
-🌸 A 3D Flower For You
+🌹 Magical Blooming Flowers
 </header>
 
 <section>
-
-<h1>Click the button to reveal a flower</h1>
-
-<button onclick="showFlower()">Show Flower</button>
-
-<div id="flowerContainer"></div>
-
-<p class="message" id="msg"></p>
-
+<h1>Click the button to bloom flowers</h1>
+<button onclick="bloomFlowers()">Bloom!</button>
+<div id="flowerArea"></div>
+<div class="message" id="msg"></div>
 </section>
 
 <footer>
-Made with sweetness 💖
+Made with love 💖
 </footer>
 
 <script>
-
-function showFlower(){
-
-document.getElementById("flowerContainer").innerHTML =
-`<div class="flower">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>`;
-
-document.getElementById("msg").innerHTML =
-"Just like this flower, may your day bloom with happiness and beautiful moments.";
-
+// Function to create a single flower
+function createFlower(){
+    let flower = document.createElement("div");
+    flower.className = "flower";
+    for(let i=0;i<6;i++){
+        let petal = document.createElement("div");
+        petal.className = "petal";
+        petal.style.transform = `rotate(${i*60}deg) translateY(-60px)`;
+        flower.appendChild(petal);
+    }
+    let center = document.createElement("div");
+    center.className = "center";
+    flower.appendChild(center);
+    return flower;
 }
 
+// Function to create floating petals/hearts
+function floatingElement(symbol){
+    let el = document.createElement("div");
+    el.className="floating";
+    el.innerHTML=symbol;
+    el.style.left=Math.random()*window.innerWidth+"px";
+    el.style.top=window.innerHeight+"px";
+    el.style.fontSize=(20+Math.random()*20)+"px";
+    el.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),8000);
+}
+
+// Bloom multiple flowers in sequence
+function bloomFlowers(){
+    let area = document.getElementById("flowerArea");
+    area.innerHTML="";
+    document.getElementById("msg").innerHTML="";
+    let messages = [
+        "Your day is about to bloom with happiness!",
+        "Just like flowers, you make the world beautiful!",
+        "May love and joy surround you today!"
+    ];
+    messages.forEach((msg,i)=>{
+        setTimeout(()=>{
+            let f = createFlower();
+            area.appendChild(f);
+            document.getElementById("msg").innerHTML = msg;
+            for(let j=0;j<5;j++){
+                floatingElement("🌸");
+                floatingElement("💖");
+            }
+        }, i*1500);
+    });
+}
 </script>
 
 </body>
 </html>
-```
